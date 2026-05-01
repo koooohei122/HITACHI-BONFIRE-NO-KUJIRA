@@ -97,9 +97,7 @@
     </div>
 
     <script type="module">
-      // パスワードの SHA-256 ハッシュ
-      // 変更する場合: python3 -c "import hashlib; print(hashlib.sha256('新パスワード'.encode()).hexdigest())"
-      const HASH = "cfce5e346738c88f853126c24059216bf7db5c31ad7293e8e296cbe19c9646df";
+      const HASH = "ae7a5e09ffe0015becce6b38f3581af71753a41aaf71f9669416faab8bf55e05";
 
       async function sha256(text) {
         const buf = await crypto.subtle.digest(
