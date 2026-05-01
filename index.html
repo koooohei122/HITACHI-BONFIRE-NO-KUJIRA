@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="ja">
+  <head>
+    <meta charset="UTF-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1.0, user-scalable=no"
+    />
+    <title>日立かがりびの鯨 AR</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/aframe/1.4.2/aframe.min.js"></script>
+    <script src="https://unpkg.com/@ar-js-org/ar.js@3.4.5/aframe/build/aframe-ar.js"></script>
+    <style>
+      * {
+        box-sizing: border-box;
+      }
+      body {
+        margin: 0;
+        overflow: hidden;
+        font-family: sans-serif;
+      }
+      #ui-overlay {
+        position: fixed;
+        top: 12px;
+        left: 12px;
+        color: #fff;
+        background: rgba(0, 0, 0, 0.55);
+        padding: 10px 14px;
+        border-radius: 8px;
+        z-index: 999;
+        pointer-events: none;
+      }
+      #ui-overlay h1 {
+        margin: 0 0 4px;
+        font-size: 1rem;
+      }
+      #ui-overlay p {
+        margin: 0;
+        font-size: 0.75rem;
+        opacity: 0.85;
+      }
+    </style>
+  </head>
+  <body>
+    <div id="ui-overlay">
+      <h1>日立かがりびの鯨</h1>
+      <p>シビックセンター付近でARをご覧ください</p>
+    </div>
+
+    <a-scene
+      vr-mode-ui="enabled: false"
+      arjs="sourceType: webcam; videoTexture: true; debugUIEnabled: false"
+      renderer="antialias: true; alpha: true"
+      embedded
+    >
+      <!-- GPS座標は main.ts で config.ts から注入される -->
+      <a-entity
+        id="whale-entity"
+        geometry="primitive: box; height: 5; width: 5; depth: 12"
+        material="color: #2266cc; opacity: 0.85"
+        scale="10 10 10"
+      >
+        <a-text
+          value="日立かがりびの鯨"
+          look-at="[gps-new-camera]"
+          scale="3 3 3"
+          align="center"
+          color="#ffffff"
+          position="0 3 0"
+        ></a-text>
+      </a-entity>
+
+      <a-camera gps-new-camera="gpsMinDistance: 5"></a-camera>
+    </a-scene>
+
+    <script type="module" src="/src/main.ts"></script>
+  </body>
+</html>
