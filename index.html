@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="ja">
+  <head>
+    <meta charset="UTF-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1.0, user-scalable=no"
+    />
+    <title>日立かがりびの鯨 AR</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/aframe/1.4.2/aframe.min.js"></script>
+    <script src="https://unpkg.com/@ar-js-org/ar.js@3.4.5/aframe/build/aframe-ar.js"></script>
+    <style>
+      * { box-sizing: border-box; }
+      body { margin: 0; overflow: hidden; font-family: sans-serif; }
+      #ui-overlay {
+        position: fixed;
+        top: 12px; left: 12px;
+        color: #fff;
+        background: rgba(0, 0, 0, 0.55);
+        padding: 10px 14px;
+        border-radius: 8px;
+        z-index: 999;
+        pointer-events: none;
+        max-width: 240px;
+      }
+      #ui-overlay h1 { margin: 0 0 4px; font-size: 1rem; }
+      #ui-overlay p  { margin: 0; font-size: 0.72rem; opacity: 0.85; line-height: 1.4; }
+      #demo-badge {
+        display: none;
+        position: fixed;
+        top: 12px; right: 12px;
+        background: #e67e22;
+        color: #fff;
+        font-size: 0.7rem;
+        font-weight: bold;
+        padding: 4px 10px;
+        border-radius: 20px;
+        z-index: 999;
+        pointer-events: none;
+      }
+    </style>
+    <script type="module" crossorigin src="/HITACHI-BONFIRE-NO-KUJIRA/assets/index-aGQgq24N.js"></script>
+  </head>
+  <body>
+    <div id="ui-overlay">
+      <h1>日立かがりびの鯨</h1>
+      <p id="ui-desc">シビックセンター付近でARをご覧ください</p>
+    </div>
+    <div id="demo-badge">DEMO MODE</div>
+
+    <a-scene
+      vr-mode-ui="enabled: false"
+      arjs="sourceType: webcam; videoTexture: true; debugUIEnabled: false"
+      renderer="antialias: true; alpha: true"
+      embedded
+    >
+      <!--
+        GPS座標は main.ts で設定される。
+        demo=1 の場合は現在地 +15m オフセット。
+      -->
+      <a-entity id="whale-entity">
+
+        <!-- ── 胴体（楕円球） ── -->
+        <a-sphere radius="1" scale="3.6 1 1.5" color="#2a5caa" position="0 0 0"></a-sphere>
+
+        <!-- 頭部 -->
+        <a-sphere radius="0.88" color="#2a5caa" position="2.9 0.2 0"></a-sphere>
+
+        <!-- 腹（明るい色） -->
+        <a-sphere radius="0.72" scale="3 0.55 1" color="#6a9fd8" position="0.3 -0.35 0"></a-sphere>
+
+        <!-- 尾柄 -->
+        <a-box width="1.6" height="0.45" depth="0.75" color="#1a4488" position="-3.3 0 0"></a-box>
+
+        <!-- 尾びれ 左 -->
+        <a-box width="0.15" height="0.7" depth="2.2" color="#163c7a"
+               position="-4.1 0.35 0.9" rotation="12 5 0"></a-box>
+
+        <!-- 尾びれ 右 -->
+        <a-box width="0.15" height="0.7" depth="2.2" color="#163c7a"
+               position="-4.1 0.35 -0.9" rotation="-12 -5 0"></a-box>
+
+        <!-- 胸びれ 左 -->
+        <a-box width="0.14" height="0.55" depth="2.1" color="#1a4488"
+               position="0.6 -0.9 1.9" rotation="0 10 22"></a-box>
+
+        <!-- 胸びれ 右 -->
+        <a-box width="0.14" height="0.55" depth="2.1" color="#1a4488"
+               position="0.6 -0.9 -1.9" rotation="0 -10 22"></a-box>
+
+        <!-- 背びれ -->
+        <a-cone height="1.3" radius-bottom="0.38" radius-top="0.05" color="#163c7a"
+                position="-0.6 1.15 0" rotation="0 0 -18"></a-cone>
+
+        <!-- 目 左 -->
+        <a-sphere radius="0.13" color="#050d1a" position="2.6 0.38 0.82"></a-sphere>
+        <!-- 目 右 -->
+        <a-sphere radius="0.13" color="#050d1a" position="2.6 0.38 -0.82"></a-sphere>
+
+        <!-- ラベル -->
+        <a-text
+          value="日立かがりびの鯨"
+          look-at="[gps-new-camera]"
+          scale="3 3 3"
+          align="center"
+          color="#ffffff"
+          position="0 3.2 0"
+        ></a-text>
+
+      </a-entity>
+
+      <a-camera gps-new-camera="gpsMinDistance: 5"></a-camera>
+    </a-scene>
+
+  </body>
+</html>
